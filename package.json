@@ -1,0 +1,20 @@
+{
+  "name": "imagine-satellite",
+  "version": "1.0.0",
+  "description": "Backend API service that returns the live information of satellites",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "author": "FranZavalla",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "sequelize": "^6.15.0",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
