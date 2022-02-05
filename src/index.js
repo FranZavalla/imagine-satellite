@@ -8,3 +8,5 @@ db.sequelize.sync().then(
     console.log(`Server on port: ${app.get("port")}`);
   }))
 );
+
+module.exports = { server, app };
