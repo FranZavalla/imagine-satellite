@@ -4,15 +4,21 @@
   "description": "Backend API service that returns the live information of satellites",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "test": "NODE_ENV=test jest --verbose --silent; rm satellite_db_test.sqlite"
   },
   "author": "FranZavalla",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.2",
+    "jest": "^27.4.7",
+    "jsonwebtoken": "^8.5.1",
     "sequelize": "^6.15.0",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "supertest": "^6.2.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
