@@ -12,8 +12,7 @@ class AuthController {
     if (!result.isEmpty()) {
       let errors = [];
       result.array().forEach((e) => errors.push(e.msg));
-      res.status(400).json({ auth: false, msg: errors });
-      return;
+      return res.status(400).json({ auth: false, msg: errors });
     }
 
     try {
@@ -46,6 +45,7 @@ class AuthController {
       return res.status(500).json({
         auth: false,
         msg: "There was a problem registering your user",
+        error: e,
       });
     }
   }
@@ -55,8 +55,7 @@ class AuthController {
     if (!result.isEmpty()) {
       let errors = [];
       result.array().forEach((e) => errors.push(e.msg));
-      res.status(400).json({ auth: false, msg: errors });
-      return;
+      return res.status(400).json({ auth: false, msg: errors });
     }
 
     try {
@@ -81,7 +80,11 @@ class AuthController {
 
       return res.status(200).json({ auth: true, key: key });
     } catch (e) {
-      return res.status(500).json({ status: "There was a problem logging" });
+      return res.status(500).json({
+        auth: false,
+        msg: "There was a problem logging",
+        error: e,
+      });
     }
   }
 }
