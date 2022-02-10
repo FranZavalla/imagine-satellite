@@ -6,7 +6,7 @@ const SatellitesController = require("../controllers/satellites.controller");
 
 const router = Router();
 
-// POST /saletellites
+// POST /saletellites?key
 // Create a new satellite. Key is needed
 router.post(
   "/satellite",
@@ -14,8 +14,16 @@ router.post(
   SatellitesController.create
 );
 
-// GET /satellites
+// GET /satellite
 // Get all satellites from database
 router.get("/satellite", SatellitesController.get);
+
+// GET /satelliteByName?name
+// Get a satellite by name
+router.get(
+  "/satelliteByName",
+  satellitesValidation.getByName,
+  SatellitesController.getByName
+);
 
 module.exports = router;

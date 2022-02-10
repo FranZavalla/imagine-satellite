@@ -102,6 +102,41 @@ class SatellitesController {
       });
     }
   }
+
+  static async getByName(req, res) {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      let errors = [];
+      result.array().forEach((e) => errors.push(e.msg));
+      return res.status(400).json({ msg: errors });
+    }
+
+    const name = req.query.name;
+    try {
+      const track = await SpaceTracks.findOne({
+        where: { OBJECT_NAME: name },
+        attributes: { exclude: ["createdAt", "updatedAt", "id"] },
+      });
+
+      if (!track) {
+        return res.status(400).json({ msg: `Satellite ${name} not found` });
+      }
+
+      const SatId = track.dataValues.SatelliteId;
+
+      const satellite = await Satellites.findOne({
+        where: { id: SatId },
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+      });
+
+      satellite.dataValues.spaceTrack = track.dataValues;
+      res.status(200).json({ satellite });
+    } catch (e) {
+      res
+        .status(500)
+        .json({ msg: "There was a problem getting satellite", error: e });
+    }
+  }
 }
 
 module.exports = SatellitesController;

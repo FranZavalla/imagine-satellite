@@ -26,6 +26,7 @@ const satellitesValidation = {
         "The minimum and maximum value for velocity is 0.0 and 299792.458 respectively"
       ),
   ],
+  getByName: [query("name").exists().withMessage("No name provided")],
 };
 
 module.exports = satellitesValidation;
