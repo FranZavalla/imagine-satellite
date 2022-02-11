@@ -26,4 +26,10 @@ router.get(
   SatellitesController.getByName
 );
 
+router.get(
+  "/satelliteByDistance",
+  satellitesValidation.getByDistance,
+  SatellitesController.getByDistance
+);
+
 module.exports = router;

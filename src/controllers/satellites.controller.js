@@ -88,13 +88,13 @@ class SatellitesController {
       });
       trackData.sort();
 
-      let result = [];
+      let satellitesFull = [];
       for (let i = 0; i < satelliteData.length; i++) {
         satelliteData[i].spaceTrack = trackData[i];
-        result.push(satelliteData[i]);
+        satellitesFull.push(satelliteData[i]);
       }
 
-      res.status(200).send(result);
+      res.status(200).send(satellitesFull);
     } catch (e) {
       return res.status(500).json({
         msg: "There was a problem getting satellites",
@@ -135,6 +135,60 @@ class SatellitesController {
       res
         .status(500)
         .json({ msg: "There was a problem getting satellite", error: e });
+    }
+  }
+
+  static async getByDistance(req, res) {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      let errors = [];
+      result.array().forEach((e) => errors.push(e.msg));
+      return res.status(400).json({ msg: errors });
+    }
+
+    try {
+      const { l1, l2, d } = req.query;
+      const haversine = require("../utils/haversine");
+
+      const satellites = await Satellites.findAll({
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      });
+
+      const spaceTrack = await SpaceTracks.findAll({
+        attributes: { exclude: ["createdAt", "updatedAt", "id"] },
+      });
+
+      let satelliteData = [];
+      satellites.map((sat) => {
+        satelliteData.push(sat.dataValues);
+      });
+      satelliteData.sort();
+
+      let trackData = [];
+      spaceTrack.map((track) => {
+        trackData.push(track.dataValues);
+      });
+      trackData.sort();
+
+      let satellitesFull = [];
+      for (let i = 0; i < satelliteData.length; i++) {
+        satelliteData[i].spaceTrack = trackData[i];
+        satellitesFull.push(satelliteData[i]);
+      }
+
+      const satellitesInDistance = satellitesFull.filter((sat) => {
+        let satDist = haversine(l1, sat.latitude, l2, sat.longitude);
+        return satDist <= d;
+      });
+
+      res.status(200).json({ satellitesInDistance });
+    } catch (e) {
+      console.log(e);
+      res
+        .status(500)
+        .json({ msg: "There was a problem getting satellites", error: e });
     }
   }
 }
