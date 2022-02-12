@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "NODE_ENV=test jest --verbose --silent; rm satellite_db_test.sqlite"
+    "test": "NODE_ENV=test jest --verbose --silent --maxWorkers=1"
   },
   "author": "FranZavalla",
   "license": "ISC",
@@ -14,14 +14,14 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "express-validator": "^6.14.0",
-    "jest": "^27.4.7",
     "jsonwebtoken": "^8.5.1",
     "sequelize": "^6.15.0",
     "sqlite3": "^5.0.2",
-    "supertest": "^6.2.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2",
+    "jest": "^27.4.7"
   }
 }
