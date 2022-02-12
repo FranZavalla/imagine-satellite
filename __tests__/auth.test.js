@@ -1,5 +1,8 @@
 const request = require("supertest");
 const { server, app } = require("../src/index");
+const db = require("../src/db");
+
+beforeAll(() => db.models.Users.sync({ force: true }));
 
 describe("POST /auth/register", () => {
   it("Correct register. Must reply with a key and true authorization", async () => {
