@@ -24,4 +24,10 @@ fs.readdirSync(dir).forEach((filename) => {
   db.models[model.name] = model;
 });
 
+Object.keys(db.models).forEach((key) => {
+  if (db.models[key].hasOwnProperty("associate")) {
+    db.models[key].associate(db.models);
+  }
+});
+
 module.exports = db;
