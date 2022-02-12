@@ -7,6 +7,12 @@ const satellitesValidation = {
       .withMessage("No key provided")
       .isJWT()
       .withMessage("Invalid key"),
+    body("launch")
+      .isLength({ min: 0 })
+      .withMessage("The minimum length of launch must be 0"),
+    body("version")
+      .isLength({ min: 0 })
+      .withMessage("The minimum length of version must be 0"),
     body("height_km")
       .isFloat({ min: 0.0 })
       .withMessage("Minimum value for height is 0"),

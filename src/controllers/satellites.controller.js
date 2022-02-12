@@ -185,7 +185,6 @@ class SatellitesController {
 
       res.status(200).json({ satellitesInDistance });
     } catch (e) {
-      console.log(e);
       res
         .status(500)
         .json({ msg: "There was a problem getting satellites", error: e });
