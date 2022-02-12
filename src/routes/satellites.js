@@ -26,6 +26,8 @@ router.get(
   SatellitesController.getByName
 );
 
+// GET /satelliteByDistance?l1&l2&d
+// Get a satellites in distance (d) from a point (l1,l2)
 router.get(
   "/satelliteByDistance",
   satellitesValidation.getByDistance,

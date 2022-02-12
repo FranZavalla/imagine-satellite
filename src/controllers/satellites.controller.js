@@ -59,7 +59,6 @@ class SatellitesController {
       return res.status(500).json({
         created: false,
         msg: "There was a problem creating a satellite",
-        error: e,
       });
     }
   }
@@ -98,7 +97,6 @@ class SatellitesController {
     } catch (e) {
       return res.status(500).json({
         msg: "There was a problem getting satellites",
-        error: e,
       });
     }
   }

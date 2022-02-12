@@ -45,7 +45,6 @@ class AuthController {
       return res.status(500).json({
         auth: false,
         msg: "There was a problem registering your user",
-        error: e,
       });
     }
   }
@@ -83,7 +82,6 @@ class AuthController {
       return res.status(500).json({
         auth: false,
         msg: "There was a problem logging",
-        error: e,
       });
     }
   }
