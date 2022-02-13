@@ -18,6 +18,30 @@ beforeAll(async () => {
   key = response.body.key;
 });
 
+describe("GET /satellite and /satelliteByDistance without data", () => {
+  it("Get satellites from empty database", async () => {
+    const response = await request(app)
+      .get("/satellite")
+      .set("Accept", "application/json");
+
+    expect(response.status).toEqual(200);
+    expect(response.body.msg).toEqual(
+      "There are no satellites in the database yet"
+    );
+  });
+
+  it("Get satellites by distance from empty database", async () => {
+    const response = await request(app)
+      .get("/satelliteByDistance?l1=0.0&l2=0.0&d=1000000")
+      .set("Accept", "application/json");
+
+    expect(response.status).toEqual(200);
+    expect(response.body.msg).toEqual(
+      "There are no satellites within 1000000 km of (0.0,0.0)"
+    );
+  });
+});
+
 describe("GET /satellite", () => {
   it("Create satellites", async () => {
     for (let i = 0; i < satellites.length; i++) {

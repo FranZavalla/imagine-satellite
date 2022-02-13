@@ -71,6 +71,13 @@ class SatellitesController {
         },
       });
 
+      if (satellites.length == 0) {
+        res
+          .status(200)
+          .json({ msg: "There are no satellites in the database yet" });
+        return;
+      }
+
       const spaceTrack = await SpaceTracks.findAll({
         attributes: { exclude: ["createdAt", "updatedAt", "id"] },
       });
@@ -180,6 +187,13 @@ class SatellitesController {
         let satDist = haversine(l1, sat.latitude, l2, sat.longitude);
         return satDist <= d;
       });
+
+      if (satellitesInDistance.length == 0) {
+        res.status(200).json({
+          msg: `There are no satellites within ${d} km of (${l1},${l2})`,
+        });
+        return;
+      }
 
       res.status(200).json({ satellitesInDistance });
     } catch (e) {
