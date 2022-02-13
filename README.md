@@ -75,6 +75,7 @@ As an extra, a user system was added, which allows adding new satellites with a 
 * Get all satellites
 * **Returns**:
   - On successful action -> code 200, ```{ [satellite] }```
+  - On empty list of satellites -> code 200, ```{ msg: "There are no satellites in the database yet" }```
   - On server errors -> code 500, ```{ msg: "There was a problem getting satellites" }```
 
 ### /satelliteByName
@@ -84,7 +85,7 @@ As an extra, a user system was added, which allows adding new satellites with a 
 * **Returns**:
   - On successful action -> code 200, ```{ satellite }```
   - On failed validation -> code 400, ```{ msg: [errors] }```
-  - If the satellite does not exist -> code 400, ```{ msg: "Satellite ${name} not found" }```
+  - If the satellite does not exist -> code 400, ```{ msg: "Satellite 'name' not found" }```
   - On server errors -> code 500, ```{ msg: "There was a problem getting satellite" }```
 
 ### /satelliteByDistance
@@ -94,4 +95,5 @@ As an extra, a user system was added, which allows adding new satellites with a 
 * **Returns**:
   - On successful action -> code 200, ```{ satellitesInDistance: [satellites] }```
   - On failed validation -> code 400, ```{ msg: [errors] }```
+  - On empty list of satellites -> code 200, ```{ msg: There are no satellites within d km of (l1,l2) }```
   - On server error -> code 500, ```{ msg: "There was a problem getting satellites" }```
